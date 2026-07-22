@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Stay Focused — YouTube Focus Mode</title>
+<link rel="stylesheet" href="blocked.css" />
+</head>
+<body>
+  <div class="lamp-glow"></div>
+
+  <main class="wrap">
+    <div class="lamp-icon">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2v3M8 5h8l2 6H6l2-6ZM4 20h16M9 20l-1-9M15 20l1-9" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <p class="eyebrow" id="reasonLabel">This page is blocked during Focus Mode</p>
+    <h1>Stay Focused.</h1>
+
+    <p class="lede" id="timeLeftLine">Keep going — you're doing great.</p>
+
+    <div class="quote" id="quote">Don't break your momentum. Keep learning 🚀</div>
+
+    <button id="continueBtn" class="btn-continue">Continue Studying</button>
+
+    <div class="mini-stats">
+      <div><strong id="qBlocked">0</strong><span>blocked this session</span></div>
+      <div><strong id="qVideos">0</strong><span>videos finished</span></div>
+    </div>
+  </main>
+
+  <script src="utils.js"></script>
+  <script src="storage.js"></script>
+  <script src="blocked.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+/* theme.css — shared design tokens for the "Desk Lamp" visual identity
+   Concept: a warm study-lamp glow (amber -> violet) against a deep indigo night,
+   evoking the feeling of the one lit desk in a quiet room, late, focused.
+   Fonts are system-stack only (no remote font loading) so the extension works
+   fully offline and keeps a minimal Chrome Web Store review footprint. */
+
+:root {
+  /* ---- Dark (default) ---- */
+  --bg: #100c22;
+  --surface: #1a1533;
+  --surface-hover: #221c40;
+  --border: #2c2650;
+  --track: #2c2650;
+  --text: #f3f1ff;
+  --text-muted: #9089b8;
+  --accent: #a78bfa;      /* violet — primary interactive */
+  --accent-2: #ffb86b;    /* warm amber — lamp glow */
+  --glow: rgba(255, 184, 107, 0.18);
+  --danger: #f87171;
+  --warning: #fbbf24;
+  --success: #4ade80;
+
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", serif;
+  --font-body: -apple-system, "Segoe UI", system-ui, Roboto, sans-serif;
+  --font-mono: "SFMono-Regular", "Cascadia Mono", Consolas, "Courier New", monospace;
+}
+
+html[data-theme="light"] {
+  --bg: #faf8f4;
+  --surface: #ffffff;
+  --surface-hover: #f1eefa;
+  --border: #e7e2f5;
+  --track: #e7e2f5;
+  --text: #1d1836;
+  --text-muted: #6b6489;
+  --accent: #7c5cf0;
+  --accent-2: #f0954e;
+  --glow: rgba(240, 149, 78, 0.14);
+  --danger: #dc2626;
+  --warning: #d97706;
+  --success: #16a34a;
+}
+
+@media (prefers-color-scheme: light) {
+  html[data-theme="system"] {
+    --bg: #faf8f4;
+    --surface: #ffffff;
+    --surface-hover: #f1eefa;
+    --border: #e7e2f5;
+    --track: #e7e2f5;
+    --text: #1d1836;
+    --text-muted: #6b6489;
+    --accent: #7c5cf0;
+    --accent-2: #f0954e;
+    --glow: rgba(240, 149, 78, 0.14);
+    --danger: #dc2626;
+    --warning: #d97706;
+    --success: #16a34a;
+  }
+}

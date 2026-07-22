@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Settings — YouTube Focus Mode</title>
+<link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="lamp-glow"></div>
+
+  <div class="shell">
+    <header class="opt-header">
+      <div class="brand"><span class="brand-mark">🎯</span> Focus Mode Settings</div>
+      <p class="brand-sub">Tune how Focus Mode behaves across every session.</p>
+    </header>
+
+    <div class="grid">
+
+      <!-- Timer defaults -->
+      <section class="panel">
+        <h2>Timer</h2>
+        <label class="field">
+          <span>Default session length</span>
+          <select id="defaultDuration">
+            <option value="15">15 minutes</option>
+            <option value="25">25 minutes</option>
+            <option value="30">30 minutes</option>
+            <option value="45">45 minutes</option>
+            <option value="60">60 minutes</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Daily goal</span>
+          <select id="dailyGoal">
+            <option value="60">1 hour</option>
+            <option value="120">2 hours</option>
+            <option value="180">3 hours</option>
+            <option value="custom">Custom</option>
+          </select>
+        </label>
+        <input type="number" id="dailyGoalCustom" class="text-input hidden" placeholder="Minutes per day" min="10" max="960" />
+      </section>
+
+      <!-- General preferences -->
+      <section class="panel">
+        <h2>Preferences</h2>
+        <label class="row"><span>Enable notifications</span><label class="switch"><input type="checkbox" id="notificationsEnabled" /><span class="slider"></span></label></label>
+        <label class="row"><span>Sound effects</span><label class="switch"><input type="checkbox" id="soundEffects" /><span class="slider"></span></label></label>
+        <label class="field">
+          <span>Appearance</span>
+          <select id="themeSelect">
+            <option value="system">Match system</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+      </section>
+
+      <!-- Pomodoro -->
+      <section class="panel">
+        <h2>Pomodoro Mode</h2>
+        <label class="row"><span>Enable Pomodoro cycles</span><label class="switch"><input type="checkbox" id="pomodoroEnabled" /><span class="slider"></span></label></label>
+        <label class="field"><span>Short break</span>
+          <select id="shortBreak"><option value="5">5 min</option><option value="10">10 min</option><option value="15">15 min</option></select>
+        </label>
+        <label class="field"><span>Long break</span>
+          <select id="longBreak"><option value="15">15 min</option><option value="20">20 min</option><option value="30">30 min</option></select>
+        </label>
+        <label class="field"><span>Sessions before long break</span>
+          <select id="sessionsBeforeLongBreak"><option value="2">2</option><option value="4">4</option><option value="6">6</option></select>
+        </label>
+      </section>
+
+      <!-- Whitelist -->
+      <section class="panel span-2">
+        <h2>Approved Channels</h2>
+        <p class="hint">During Strict Mode, only videos from these channels are allowed.</p>
+        <div class="chip-input">
+          <input type="text" id="channelInput" placeholder="Add a channel name and press Enter" />
+          <button id="addChannelBtn" class="btn-small">Add</button>
+        </div>
+        <div class="chips" id="channelChips"></div>
+      </section>
+
+      <!-- Data management -->
+      <section class="panel span-2">
+        <h2>Data</h2>
+        <div class="btn-row">
+          <button id="exportBtn" class="btn-outline">Export Settings</button>
+          <label class="btn-outline file-btn">
+            Import Settings
+            <input type="file" id="importInput" accept="application/json" class="hidden" />
+          </label>
+          <button id="resetStatsBtn" class="btn-outline danger">Reset Statistics</button>
+        </div>
+        <p class="save-note" id="saveNote"></p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="storage.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>YouTube Focus Mode</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app" id="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-mark">🎯</div>
+        <div class="brand-text">
+          <h1>Focus Mode</h1>
+          <span class="brand-sub">for YouTube</span>
+        </div>
+      </div>
+      <button class="icon-btn" id="openOptions" title="Settings" aria-label="Settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Z" stroke="currentColor" stroke-width="1.6"/><path d="M19.4 13.5a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V19.5a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H4.5a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H10.5a1.65 1.65 0 0 0 1-1.51V4.5a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V10.5a1.65 1.65 0 0 0 1.51 1H19.5a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z" stroke="currentColor" stroke-width="1.6"/></svg>
+      </button>
+    </header>
+
+    <!-- Tabs -->
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-tab="timer">Timer</button>
+      <button class="tab" data-tab="stats">Stats</button>
+      <button class="tab" data-tab="achievements">Badges</button>
+    </nav>
+
+    <!-- TIMER TAB -->
+    <section class="tab-panel active" id="panel-timer">
+
+      <!-- Idle state: pick a duration and start -->
+      <div class="lamp-stage" id="idleStage">
+        <div class="lamp-glow"></div>
+        <div class="duration-grid" id="durationGrid">
+          <button class="duration-chip" data-mins="15">15m</button>
+          <button class="duration-chip" data-mins="25">25m</button>
+          <button class="duration-chip" data-mins="30">30m</button>
+          <button class="duration-chip" data-mins="45">45m</button>
+          <button class="duration-chip" data-mins="60">60m</button>
+          <button class="duration-chip custom" data-mins="custom">Custom</button>
+        </div>
+        <input type="number" id="customMinutes" class="custom-input hidden" min="1" max="480" placeholder="Minutes" />
+        <button class="btn-primary btn-start" id="startBtn">Start Focus Session</button>
+      </div>
+
+      <!-- Active state: countdown ring -->
+      <div class="lamp-stage hidden" id="activeStage">
+        <div class="lamp-glow"></div>
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 140 140">
+            <circle class="ring-track" cx="70" cy="70" r="62"></circle>
+            <circle class="ring-progress" id="ringProgress" cx="70" cy="70" r="62"></circle>
+          </svg>
+          <div class="ring-center">
+            <span class="ring-time" id="ringTime">25:00</span>
+            <span class="ring-label" id="ringLabel">remaining</span>
+          </div>
+        </div>
+
+        <div class="session-mini-stats">
+          <div><strong id="miniVideos">0</strong><span>videos</span></div>
+          <div><strong id="miniBlocked">0</strong><span>blocked</span></div>
+        </div>
+
+        <div class="active-actions">
+          <button class="btn-secondary" id="pauseResumeBtn">Pause</button>
+          <button class="btn-danger" id="stopBtn">End Session</button>
+        </div>
+        <p class="strict-note hidden" id="strictNote">🔒 Strict Mode is on — session can't be paused or stopped early.</p>
+      </div>
+
+      <!-- Daily goal -->
+      <div class="card goal-card">
+        <div class="goal-header">
+          <span>Today's Goal</span>
+          <span id="goalPercent">0%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="goalFill"></div></div>
+        <div class="goal-sub" id="goalSub">0m of 60m</div>
+      </div>
+
+      <!-- Toggles -->
+      <div class="card toggles-card">
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-title">Strict Mode</div>
+            <div class="toggle-desc">Locks the session — no pausing, no distractions</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="strictModeToggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div>
+            <div class="toggle-title">Allow Search</div>
+            <div class="toggle-desc">Keep YouTube search enabled during sessions</div>
+          </div>
+          <label class="switch">
+            <input type="checkbox" id="allowSearchToggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS TAB -->
+    <section class="tab-panel" id="panel-stats">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value" id="statTotal">0h 0m</div>
+          <div class="stat-label">Total Focus Time</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statToday">0m</div>
+          <div class="stat-label">Today</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statSessions">0</div>
+          <div class="stat-label">Sessions</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statVideos">0</div>
+          <div class="stat-label">Videos Finished</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBlocked">0</div>
+          <div class="stat-label">Distractions Blocked</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statLongest">0m</div>
+          <div class="stat-label">Longest Session</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statStreak">0 🔥</div>
+          <div class="stat-label">Current Streak</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value" id="statBestStreak">0</div>
+          <div class="stat-label">Best Streak</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="goal-header"><span>This Week</span></div>
+        <div class="week-bars" id="weekBars"></div>
+      </div>
+    </section>
+
+    <!-- ACHIEVEMENTS TAB -->
+    <section class="tab-panel" id="panel-achievements">
+      <div class="achievements-grid" id="achievementsGrid"></div>
+    </section>
+
+  </div>
+
+  <script src="utils.js"></script>
+  <script src="storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
