@@ -4,6 +4,7 @@ A Manifest V3 Chrome extension that helps you study on YouTube distraction-free:
 a focus timer, Strict Mode locking, distraction removal, a channel whitelist,
 stats, streaks, and achievements — all stored locally with `chrome.storage.local`.
 
+
 ## Folder structure
 
 ```
